@@ -1,0 +1,40 @@
+<div class="group-list">
+  <div class="search-bar">
+    <div class="search-bar">
+      <input type="text" placeholder="Search Groups" [(ngModel)]="searchQuery" (click)="searchGroups()" (ngModelChange)="searchGroups()" />
+    </div>
+
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Sl.no</th>
+        <th>Group Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let group of groups; let i = index">
+        <td>{{ i + 1 }}</td>
+
+        <td>{{ group.group_name }}</td>
+        <td>
+
+          <!-- Add Mat Expansion Panel Here -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+          <mat-icon fontIcon="delete" (click)="deleteGroup(group.id)"></mat-icon>
+              <mat-icon fontIcon="home" (click)="copyGroup(group)"></mat-icon>
+              <mat-icon fontIcon="edit" (click)="editGroup(group)"></mat-icon>
+
+
+            </mat-expansion-panel-header>
+            <div class="member-list">
+              <p *ngFor="let member of group.members">{{ member }}<mat-icon fontIcon="delete" (click)="deleteMember(group, member)"></mat-icon></p>
+            </div>
+          </mat-expansion-panel>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

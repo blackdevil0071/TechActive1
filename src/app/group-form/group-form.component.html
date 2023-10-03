@@ -1,0 +1,27 @@
+<form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+  <label for="group_name">Group Name:</label>
+  <input type="text" id="group_name" formControlName="group_name" required />
+
+  <label for="group_admin_name">Admin Name:</label>
+  <input
+    type="text"
+    id="group_admin_name"
+    formControlName="group_admin_name"
+    required
+  />
+
+  <div formArrayName="add_members">
+    <div *ngFor="let memberControl of getAddMembersFormArray().controls; let i = index">
+      <input
+        type="text"
+        [formControlName]="i"
+        placeholder="Member Name"
+      />
+      <button type="button" (click)="removeMember(i)">Remove Member</button>
+    </div>
+  </div>
+
+  <button type="button" (click)="addMember()">Add Member</button>
+
+  <button type="submit">Submit</button>
+</form>

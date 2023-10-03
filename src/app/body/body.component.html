@@ -1,0 +1,6 @@
+<button mat-flat-button color="basic" style="background-color: rgb(156, 154, 154);" (click)="showGroupForm()">Create Group</button>
+
+<app-group-form
+  *ngIf="isFormVisible"
+  (formClosed)="closeForm()"
+></app-group-form>
