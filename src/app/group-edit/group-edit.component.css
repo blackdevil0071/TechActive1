@@ -7,14 +7,14 @@ form {
   border-radius: 5px;
   background-color: #f9f9f9;
 }
-.form-group{
-  align-items: center;
+h2{
+  text-align: center;
 }
+
 /* Style for form labels */
 label {
   display: block;
   margin-bottom: 8px;
-  flex: 1;
 }
 
 /* Style for form input fields */
@@ -65,35 +65,9 @@ button[type="button"]:last-child {
   margin-top: 4px;
 }
 
-/* CSS for inline form */
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-label {
-  display: inline-block;
-  width: 150px; /* Adjust the width as needed to align labels properly */
-  margin-right: 10px; /* Add some spacing between label and input */
-}
-
-input[type="text"] {
-  width: 40%; /* Make the input fields expand to fill the available width */
-  padding: 5px;
-  margin-bottom: 10px; /* Add spacing between input fields */
-}
-
-/* CSS for the "Add Member" button */
-mat-icon[type="button"] {
-  cursor: pointer;
-  font-size: 20px;
-  margin-left: 10px; /* Add spacing between the input and the button */
-}
-
-h3{
-  text-align: center;
-}
-input{
-  width: 1200px;
+/* Style for form success message */
+.success-message {
+  color: #28a745;
+  font-size: 16px;
+  margin-top: 10px;
 }

@@ -1,10 +1,21 @@
-<div class="group-list">
-  <div class="search-bar">
-    <div class="search-bar">
-      <input type="text" placeholder="Search Groups" [(ngModel)]="searchQuery" (click)="searchGroups()" (ngModelChange)="searchGroups()" />
-    </div>
+<div class="search-bar">
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    (ngModelChange)="searchGroups()"
+    placeholder="Search Groups"
+  />
+</div>
 
-  </div>
+<div class="group-list">
+
+<div class="sort">
+  <button (click)="sortGroupsAscending('group_name')">Top to Bottom</button>
+  <button (click)="sortGroupsDescending('group_name')">Bottom to Top</button>
+
+</div>
+
+
   <table>
     <thead>
       <tr>
@@ -14,27 +25,48 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let group of groups; let i = index">
-        <td>{{ i + 1 }}</td>
+      <ng-container *ngFor="let group of groups; let i = index">
+        <!-- Regular row -->
 
-        <td>{{ group.group_name }}</td>
-        <td>
-
-          <!-- Add Mat Expansion Panel Here -->
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-          <mat-icon fontIcon="delete" (click)="deleteGroup(group.id)"></mat-icon>
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ group.group_name }}</td>
+          <td>
+            <div class="action-icons">
+              <mat-icon fontIcon="delete"(click)="deleteGroup(group.id)"
+              ></mat-icon>
               <mat-icon fontIcon="home" (click)="copyGroup(group)"></mat-icon>
-              <mat-icon fontIcon="edit" (click)="editGroup(group)"></mat-icon>
 
+              <mat-icon fontIcon="edit" (click)="openEditForm(group)" ></mat-icon>
 
-            </mat-expansion-panel-header>
-            <div class="member-list">
-              <p *ngFor="let member of group.members">{{ member }}<mat-icon fontIcon="delete" (click)="deleteMember(group, member)"></mat-icon></p>
+              <mat-icon
+                class="expand-icon"
+                fontIcon="keyboard_arrow_down"
+                (click)="toggleExpansion(i)"
+                [class.expanded]="expandedRow === i"
+              ></mat-icon>
             </div>
-          </mat-expansion-panel>
-        </td>
-      </tr>
+          </td>
+        </tr>
+        <!-- Expandable row -->
+        <tr *ngIf="expandedRow === i">
+          <td colspan="3">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <div class="member-list">
+                  <p *ngFor="let member of group.add_members">
+                    {{ member }}
+                    <mat-icon
+                      fontIcon="delete"
+                      (click)="deleteMember(group, member)"
+                    ></mat-icon>
+                  </p>
+                </div>
+              </mat-expansion-panel-header>
+            </mat-expansion-panel>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 </div>

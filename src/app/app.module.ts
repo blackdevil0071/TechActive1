@@ -14,6 +14,7 @@ import { BodyComponent } from './body/body.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
+import { GroupEditComponent } from './group-edit/group-edit.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {MatButtonModule} from '@angular/material/button';
     HeaderComponent,
     GroupFormComponent,
     GroupListComponent,
-    BodyComponent
+    BodyComponent,
+    GroupEditComponent
   ],
   imports: [
     BrowserModule,

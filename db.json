@@ -1,18 +1,84 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "id": "1696469559152",
+      "group_name": "ewraas",
+      "group_admin_name": "sadd",
+      "add_members": [
+        "sada",
+        "dassss"
+      ]
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": "1696470663516",
+      "group_name": "Suhas",
+      "group_admin_name": "Suhas",
+      "add_members": [
+        "Raj",
+        "Ram",
+        "Roy"
+      ]
+    },
+    {
+      "id": "1696472020146",
+      "group_name": "Suhas",
+      "group_admin_name": "Suhas",
+      "add_members": [
+        "Raj",
+        "Ram",
+        "Roy"
+      ]
+    },
+    {
+      "id": "1696472318169",
+      "group_name": "Ram",
+      "group_admin_name": "sjadasd",
+      "add_members": [
+        "kdsajdkads",
+        "daskjdadk"
+      ]
+    },
+    {
+      "id": "1696472554101",
+      "group_name": "Suhas",
+      "group_admin_name": "Suhas",
+      "add_members": [
+        "Raj",
+        "Ram",
+        "Roy"
+      ]
+    },
+    {
+      "id": "1696472559019",
+      "group_name": "Suhas",
+      "group_admin_name": "Suhas",
+      "add_members": [
+        "Raj",
+        "Ram",
+        "Roy"
+      ]
+    },
+    {
+      "id": "1696472560116",
+      "group_name": "Suhas",
+      "group_admin_name": "Suhas",
+      "add_members": [
+        "Raj",
+        "Ram",
+        "Roy"
+      ]
+    },
+    {
+      "id": "1696472781131",
+      "group_name": "ewraas",
+      "group_admin_name": "sadd",
+      "add_members": [
+        "sada",
+        "dassss"
+      ]
     }
   ],
+  "comments": [],
   "profile": {
     "name": "typicode"
   }

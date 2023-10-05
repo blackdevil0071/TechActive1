@@ -20,79 +20,71 @@ export class GroupFormComponent implements OnInit {
   groupUpdated: any;
 
 
+
   constructor(private groupService: GroupService, private fb: FormBuilder,private groupDataService:GroupDataService) {
     this.initGroupForm();
   }
   ngOnInit(): void {
-    if (this.group) {
+    this.addMember();
+    if (this.selectedGroup) {
+      // Patch form values for editing an existing group
+
       this.groupForm.patchValue({
-        group_name: this.group.group_name,
-        group_admin_name: this.group.group_admin_name,
-        // Add other form fields and patch them as needed
+        id: this.selectedGroup.id,
+        group_name: this.selectedGroup.group_name,
+        group_admin_name: this.selectedGroup.group_admin_name,
+        add_members: this.selectedGroup.members,
       });
     }
-    }
-
+  }
 
   private initGroupForm(): void {
     this.groupForm = this.fb.group({
-      id: [null], // Add an 'id' field
+      id: [null], // Keep it null for new groups, and set it when editing
       group_name: ['', Validators.required],
       group_admin_name: ['', Validators.required],
-      add_members: this.fb.array([]), // Use a FormArray for members
+      add_members: this.fb.array([]),
     });
 
     if (this.selectedGroup) {
-      this.groupForm.patchValue({
-        id: this.selectedGroup.id, // Set the 'id' if it's an existing group
-        group_name: this.selectedGroup.group_name,
-        group_admin_name: this.selectedGroup.group_admin_name,
-      });
-
-      // Populate existing members in the FormArray
-      this.selectedGroup.members.forEach((member: string | undefined) => {
+      this.selectedGroup.members.forEach((member: string) => {
         this.addMember(member);
       });
     }
   }
 
-  onSubmit(): void {
+  //DONE DONE
+ onSubmit(): void {
     if (this.groupForm.valid) {
       const formData = this.groupForm.value;
 
-      if (this.selectedGroup) {
-        // Update existing group
-        this.selectedGroup.group_name = formData.group_name;
-        this.selectedGroup.group_admin_name = formData.group_admin_name;
+      // Create or update the group based on the presence of 'id'
+      if (formData.id) {
+        // Update an existing group
 
-        // Update members
-        this.selectedGroup.members = formData.add_members;
+        this.groupService.updateGroup(formData.id, formData).subscribe((updatedGroup) => {
+          this.groupUpdated.emit(updatedGroup)
+        });
+      }  else {
+        // Generate a unique ID for new groups
+        formData.id = this.generateUniqueId();
 
-        this.groupService
-          .updateGroup(this.selectedGroup.id, this.selectedGroup)
-          .subscribe((updatedGroup) => {
-            this.groupSubmitted.emit(updatedGroup);
-            this.groupDataService.setGroupData(updatedGroup);
-            this.groupService.updateGroup(this.group.id,this.group).subscribe((updatedGroup)=>{
-              this.groupUpdated.emit(updatedGroup)            })
-          });
-      } else {
         // Create a new group
-        const newGroup = {
-          id: null, // The 'id' will be assigned by the backend
-          group_name: formData.group_name,
-          group_admin_name: formData.group_admin_name,
-          members: formData.add_members,
-        };
-
-        this.groupService.createGroup(newGroup).subscribe((createdGroup) => {
+        this.groupService.createGroup(formData).subscribe((createdGroup) => {
           this.groupSubmitted.emit(createdGroup);
+          console.log(formData)
         });
       }
-
-      // Reset the form
-      this.groupForm.reset();
+      // Reset the form to its initial state
+      this.initGroupForm();
     }
+  }
+
+
+  private generateUniqueId(): string {
+    // Generate a unique ID (you can use a library or implement your own logic)
+    // Example: return a timestamp-based ID
+    return Date.now().toString();
   }
 
   addMember(memberName = ''): void {

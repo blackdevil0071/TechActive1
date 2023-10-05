@@ -1,5 +1,3 @@
-// group-data.service.ts
-
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -18,8 +16,22 @@ export class GroupDataService {
 
   getGroupData() {
     return this.groupDataSubject.asObservable();
-  }//Done
-  // Method to update the group data
+  }
+
+  // Method to add a new group to the local data
+  addGroup(group: any): void {
+    const currentData = this.groupDataSubject.value;
+    currentData.push(group);
+    this.groupDataSubject.next(currentData);
+  }
+
+  // Method to remove a group from the local data by ID
+  removeGroupById(groupId: number): void {
+    const currentData = this.groupDataSubject.value;
+    const updatedData = currentData.filter((group) => group.id !== groupId);
+    this.groupDataSubject.next(updatedData);
+  }
+
   updateGroupData(groups: any[]): void {
     this.groupDataSubject.next(groups);
   }

@@ -17,10 +17,11 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private groupDataService: GroupDataService,
-    private groupService: GroupService
+    private groupService: GroupService,
   ) {}
 
   ngOnInit(): void {
+
     // Subscribe to changes in group data
     this.groupDataService.groupData$.subscribe((groups) => {
       // Update counts based on the updated group data
@@ -29,16 +30,16 @@ export class HeaderComponent implements OnInit {
       // Implement logic to count updated groups if needed
     });
 
+    this.groupDataService.groupData$.subscribe((updatedGroup) => {
+      // Update the totalGroupsUpdated count when a group is updated
+      this.totalGroupsUpdated++;
+    });
     // Fetch initial group data when the component initializes
     this.groupService.getAllGroups().subscribe((groups) => {
       // Update the group data in the service, which will trigger the above subscription
       this.groupDataService.updateGroupData(groups);
     });
 
-    {
-      this.groupDataService.groupData$.subscribe((groups)=>{
-        this.totalGroupsUpdated = groups.length
-      })
-    }
+
   }
 }
